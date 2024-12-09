@@ -119,7 +119,7 @@ export default function Signup() {
 
           {/* Privacy Policy */}
           <p className="text-[14px] text-[#8D8D8D] mb-6 text-center">
-            By creating an account, you agree to Nike's{" "}
+            By creating an account, you agree to Nike&#39;s{" "}
             <a href="#" className=" text-[#8D8D8D] underline">
               Privacy Policy
             </a>{" "}
@@ -150,3 +150,5 @@ export default function Signup() {
     </div>
   );
 }
+
+

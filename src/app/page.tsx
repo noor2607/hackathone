@@ -37,7 +37,7 @@ export default function Home() {
               className="mx-auto"
             />
             <div className="flex mt-4 justify-between text-[15px] leading-6 font-[500px]">
-              <h3 className="text-lg">Nike Air Max pluse</h3>
+              <h3 className="text-lg">Nike Air Max Pulse</h3>
               <p className="mt-1">₹ 13,995</p>
             </div>
             <p className="text-left text-[#757575] text-[15px] leading-6">Women's Shoes</p>
@@ -53,7 +53,7 @@ export default function Home() {
               className="mx-auto"
             />
             <div className="flex mt-4 justify-between text-[15px] leading-6 font-[500px]">
-              <h3 className="text-lg">Nike Air Max pluse</h3>
+              <h3 className="text-lg">Nike Air Max Pulse</h3>
               <p className="mt-1">₹ 13,995</p>
             </div>
             <p className="text-left text-[#757575] text-[15px] leading-6">Men's Shoes</p>
@@ -184,7 +184,7 @@ export default function Home() {
                 <p className="font-[500px] text-[black] leading-6">₹ 5,295</p>
               </div>
               <p className="text-left text-[#757575] text-[15px] leading-6">
-                Women's Long-Sleeve <br /> Running Top
+                Womens Long-Sleeve <br /> Running Top
               </p>
             </div>
 
@@ -228,7 +228,6 @@ export default function Home() {
         </div>
       </div>
       
-
 
       {/* Flight Essentials Section */}
       <div className="relative bg-white py-16 px-4">
@@ -296,9 +295,9 @@ export default function Home() {
             <h3 className="font-bold mb-4">Kids'</h3>
             <ul className="space-y-2 text-[15px] font-[500px] text-[#757575]">
               <li>Infant & Toddler Shoes</li>
-              <li>Kids' Shoes</li>
-              <li>Kids' Jordan Shoes</li>
-              <li>Kids' Basketball Shoes</li>
+              <li>Kids Shoes</li>
+              <li>Kids Jordan Shoes</li>
+              <li>Kids Basketball Shoes</li>
             </ul>
           </div>
         </div>
@@ -310,18 +309,16 @@ export default function Home() {
             <a href="#" aria-label="Facebook">
               <i className="fab fa-facebook"></i>
             </a>
-            <a href="#" aria-label="Twitter">
-              <i className="fab fa-twitter"></i>
-            </a>
             <a href="#" aria-label="Instagram">
               <i className="fab fa-instagram"></i>
             </a>
+            <a href="#" aria-label="Twitter">
+              <i className="fab fa-twitter"></i>
+            </a>
           </div>
+
         </div>
       </footer>
     </div>
   );
 }
-
-    
-  

@@ -58,7 +58,7 @@ export default function Signin() {
 
           {/* Privacy Policy */}
           <p className="text-[15px] text-center leading-4 text-[#8D8D8D] mb-6">
-            By logging in, you agree to Nike's{" "}
+            By logging in, you agree to Nike&#39;s{" "}
             <span className="underline">Privacy Policy</span> and <br />
             <span className="underline">Terms of Use</span>
           </p>
