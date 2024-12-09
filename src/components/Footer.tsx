@@ -1,170 +1,92 @@
-import { IoLocationOutline } from "react-icons/io5";
-import { FaFacebook, FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
-
-export default function Footer() {
+import React from "react";
+import {
+  FaTwitter,
+  FaYoutube,
+  FaFacebook,
+  FaInstagram,
+  FaSearchLocation,
+} from "react-icons/fa";
+const Footer = () => {
   return (
     <div>
-      <footer className=" bg-black h-[400px] text-white ">
-        <div className=" md:flex md:w-[1200px] sm:w-[400px]  h-[231px] gap-x-[100px] py-10">
-            {/* 1st columns */}
-          <div className="md:pl-12 flex flex-col">
-            {" "}
-            <h1 className="pb-2 font-normal text-[15px] leading-[32.67px]">
-              FIND A STORE
-            </h1>
-            <a
-              href="#"
-              className="py-1 font-normal text-[15px] leading-[32.67px]"
-            >
-              Become A Member
-            </a>
-            <a
-              href="#"
-              className="py-1 font-normal text-[15px] leading-[32.67px]"
-            >
-              Sign Up for Email
-            </a>
-            <a
-              href="#"
-              className="py-1 font-normal text-[15px] leading-[32.67px]"
-            >
-              Send Us Feedback
-            </a>
-            <a
-              href="#"
-              className="py-1 font-normal text-[15px] leading-[32.67px]"
-            >
-              Student Discounts
-            </a>
+      {/* Footer */}
+
+      <div
+        className="w-full bg-black h-[42vh] md:h-[50vh] flex justify-center items-center 
+       md:flex-row flex-col"
+      >
+        <div className="flex justify-between h-[33vh]  md:h-[32vh]  md:flex-row flex-col w-[90%]">
+          <div className="md:w-[90%] gap-[100px]  flex md:flex-row flex-col  items-center">
+            <div className="flex flex-col gap-4 justify-center md:items-start items-center">
+              <div className="font-normal text-white text-[15px]">
+                Find A Store
+              </div>
+              <div>
+                <ul className="flex md:justify-start justify-center items-center font-normal md:items-start gap-4 flex-col  text-white">
+                  <li>Become A Member</li>
+                  <li>Sign Up for Email</li>
+                  <li>Send Us Feedback</li>
+                  <li>Student Discounts</li>
+                </ul>
+              </div>
+            </div>
+            <div className="md:flex hidden flex-col gap-4 justify-center md:items-start items-center">
+              <div className="font-medium text-white text-[15px]">Get Help</div>
+              <div>
+                <ul className="flex md:justify-start justify-center items-center md:items-start gap-4 flex-col text-[#757575]">
+                  <li> Order Status</li>
+                  <li> Delivery</li>
+                  <li> Returns</li>
+                  <li> Contact Us On Nike.com Inquiries</li>
+                  <li> Contact Us On All Other Inquiries</li>
+                </ul>
+              </div>
+            </div>
+            <div className="md:flex hidden flex-col   gap-4 justify-center md:items-start items-center">
+              <div className="font-medium text-white text-[15px]">About Nike</div>
+              <div>
+                <ul className="flex md:justify-start justify-center items-center md:items-start gap-4 flex-col text-[#757575]">
+                  <li>News </li>
+                  <li>careers</li>
+                  <li>Investors</li>
+                  <li>Sustainbility</li>
+                </ul>
+              </div>
+            </div>
           </div>
-
-                 {/* 2nd  column */}
-
-          <div className="flex flex-col ">
-            {" "}
-            <h1 className="pb-2 font-normal text-[15px] leading-[32.67px]">
-              GET HELP
-            </h1>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Order Status
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Delivery
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Returns
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Payment Options
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Contact Us On Nike.com Inquiries
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Contact Us On All Other Inquiries
-            </a>
-          </div>
-               {/* 3rd column  */}
-
-          <div className="flex flex-col">
-            {" "}
-            <h1 className="pb-2 font-normal text-[15px] leading-[32.67px]">
-              ABOUT NIKE
-            </h1>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              News
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Careers
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Investors
-            </a>
-            <a
-              href="#"
-              className="py-1 text-[#7E7E7E] leading-[28px] font-normal"
-            >
-              Sustainability
-            </a>
-          </div>
-
-           {/* social icons */}
-          <div className=" flex gap-5 text-[#7E7E7E]">
-            <FaTwitter className="h-5 w-5 md:ml-60 " />
-            <FaFacebook className="h-5 w-5 " />
-            <FaYoutube className="h-5 w-5 " />
-            <FaInstagram className="h-5 w-5 " />
+          <div className="flex justify-center md:justify-start items-center md:items-start gap-5 text-[30px]">
+            <FaTwitter className="text-[#7E7E7E]" />
+            <FaYoutube className="text-[#7E7E7E]" />
+            <FaFacebook className="text-[#7E7E7E]" />
+            <FaInstagram className="text-[#7E7E7E]" />
           </div>
         </div>
-      </footer>
+      </div>
 
-                 {/* privacy policy section */}
-      <div className="flex justify-between bg-black">
-        <div className="bg-black pb-5 text-white flex pl-12 gap-2">
-          <p className="flex gap-2 leading-3">
-            {" "}
-            <IoLocationOutline className="h-[15px] w-[18px]" />
-            India{" "}
-          </p>
-          <p className="pl-6 leading-3 font-normal text-[#7E7E7E]">
-            {" "}
-            © 2023 Nike, Inc. All Rights Reserved
-          </p>{" "}
-        </div>
-        <div className="bg-black px-12 pb-5">
-          <a
-            href=""
-            className="text-[#7E7E7E] px-3  leading-[28px] font-normal "
-          >
-            Guide
-          </a>
-          <a
-            href=""
-            className="text-[#7E7E7E] px-3 leading-[28px] font-normal "
-          >
-            Terms of Sale
-          </a>
-          <a
-            href=""
-            className="text-[#7E7E7E] px-3 leading-[28px] font-normal "
-          >
-            Terms of Use
-          </a>
-          <a
-            href=""
-            className="text-[#7E7E7E] px-3 leading-[28px] font-normal "
-          >
-            Nike Privacy Policy
-          </a>
+      {/* Bottom */}
+
+      <div
+        className="w-full bg-black h-[10vh]  md:h-[10vh] flex justify-center items-center 
+       md:flex-row flex-col"
+      >
+        <div className="flex justify-between h-[4vh] md:h-[10vh]  md:flex-row flex-col w-[90%]">
+          <div className="text-white flex gap-9 md:gap-16 justify-center items-center">
+            <div className="flex gap-3 items-center">
+              <FaSearchLocation className="text-[#7E7E7E]" />
+              <p>India</p>
+            </div>
+            <div></div>
+          </div>
+          <div className="md:flex hidden justify-center items-center gap-6 text-[#7E7E7E]">
+            <p>Guide</p>
+            <p>Terms of Sale</p>
+            <p>Terms of Use</p>
+            <p>Nike Privacy Policy</p>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Footer;
