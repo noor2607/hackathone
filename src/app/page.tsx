@@ -1,3 +1,4 @@
+
 import Hero from "@/components/Hero";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; 
@@ -40,7 +41,7 @@ export default function Home() {
               <h3 className="text-lg">Nike Air Max Pulse</h3>
               <p className="mt-1">₹ 13,995</p>
             </div>
-            <p className="text-left text-[#757575] text-[15px] leading-6">Women's Shoes</p>
+            <p className="text-left text-[#757575] text-[15px] leading-6">Womens Shoes</p>
           </div>
 
           {/* Product 2 */}
@@ -56,7 +57,7 @@ export default function Home() {
               <h3 className="text-lg">Nike Air Max Pulse</h3>
               <p className="mt-1">₹ 13,995</p>
             </div>
-            <p className="text-left text-[#757575] text-[15px] leading-6">Men's Shoes</p>
+            <p className="text-left text-[#757575] text-[15px] leading-6">Mens Shoes</p>
           </div>
 
           {/* Product 3 */}
@@ -72,7 +73,7 @@ export default function Home() {
               <h3 className="text-lg">Nike Air Max 97 SE</h3>
               <p className="mt-1">₹ 16,995</p>
             </div>
-            <p className="text-left text-[#757575] text-[15px] leading-6">Men's Shoes</p>
+            <p className="text-left text-[#757575] text-[15px] leading-6">Mens Shoes</p>
           </div>
         </div>
       </div>
@@ -146,7 +147,7 @@ export default function Home() {
                 <p className="font-[500px] text-[black] leading-6">₹ 3,895</p>
               </div>
               <p className="text-left text-[#757575] text-[15px] leading-6">
-                Men's Short-Sleeve <br /> Running Top
+                Mens Short-Sleeve <br /> Running Top
               </p>
             </div>
 
@@ -165,7 +166,7 @@ export default function Home() {
                 <p className="font-[500px] text-[black] leading-6">₹ 2,495</p>
               </div>
               <p className="text-left text-[#757575] text-[15px] leading-6">
-                Men's 18cm (approx.) 2-in- <br />1 Versatile Shorts
+                Mens 18cm (approx.) 2-in- <br />1 Versatile Shorts
               </p>
             </div>
 
@@ -201,7 +202,7 @@ export default function Home() {
                 <p className="font-[500px] text-[black] leading-6">₹ 3,795</p>
               </div>
               <p className="text-left text-[#757575] text-[15px] leading-6">
-                Women's Mid-Rise 7/8 Running <br /> Leggings with Pockets
+                Womens Mid-Rise 7/8 Running <br /> Leggings with Pockets
               </p>
             </div>
           </div>
@@ -211,7 +212,7 @@ export default function Home() {
       <div className="bg-white py-16 px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-12 text-left font-sans">
-            Don't Miss
+            Dont Miss
           </h2>
 
           <div className="">
@@ -292,7 +293,7 @@ export default function Home() {
           </div>
           {/* Column 4 */}
           <div className="text-left">
-            <h3 className="font-bold mb-4">Kids'</h3>
+            <h3 className="font-bold mb-4">Kids</h3>
             <ul className="space-y-2 text-[15px] font-[500px] text-[#757575]">
               <li>Infant & Toddler Shoes</li>
               <li>Kids Shoes</li>
