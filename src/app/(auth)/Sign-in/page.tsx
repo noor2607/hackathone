@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image'; // Correct import
 
 export default function Signin() {
   return (
@@ -6,9 +7,10 @@ export default function Signin() {
       <div className="w-full max-w-md bg-white p-6">
         {/* Logo */}
         <div className="flex justify-center mb-4">
-          <img
+          <Image
             src="/logo.png" /* Replace with your logo URL */
             alt="Nike Logo"
+            loading="lazy"
             className="w-12 h-8"
           />
         </div>

@@ -1,0 +1,11 @@
+export const prodetail = `
+  *[_type == "product" && _id == $id][0]{
+    productName,
+    description,
+    price,
+    inventory,
+    colors,
+    "image": image.asset->url,
+    size
+  }
+`;

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image'; // Correct import
 
 export default function Signup() {
   return (
@@ -6,9 +7,12 @@ export default function Signup() {
       <div className="w-full max-w-md bg-white rounded-lg p-6">
         {/* Logo */}
         <div className="flex justify-center mb-4">
-          <img
+          <Image
             src="/logo.png" /* Replace with your logo URL */
             alt="Nike Logo"
+            width={200}
+            height={200}
+         
             className="w-12 h-8"
           />
         </div>
@@ -142,7 +146,7 @@ export default function Signup() {
         {/* Already a Member */}
         <p className="text-center text-sm text-[#8D8D8D] mt-6">
           Already a member?{" "}
-          <a href="#" className="text-[#8D8D8D] font-semibold underline">
+          <a href="/Sign-in" className="text-[#8D8D8D] font-semibold underline">
             Sign In
           </a>
         </p>

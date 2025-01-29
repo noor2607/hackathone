@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -10,13 +11,13 @@ export default function Hero() {
         </h1>
         <p className=" text-[15px] leading-6 font-normal">
           Download the app to access everything Nike.{" "}
-          <span className="underline font-semibold">Get your great.</span>
+         <a href="https://play.google.com/store/apps/details?id=com.nike.omega&hl=en&pli=1">  <span className="underline font-semibold">  Get your great. </span> </a>
         </p>
       </div>
 
       {/* Image Section */}
-      <div className="h-[977px]">
-        <Image src="/hero.png" alt="Nike App" width={1250} height={600} />
+      <div className="lg:h-[977px]">
+        <Image src="/hero.png" alt="Nike App" width={1250} height={600} loading="lazy" />
         <div className="pt-[56px]">
           <h1 className="text-[15px] leading-6">First Look</h1>
           <h1 className="text-[56px] pt-2 font-[500] leading-[60px]">
@@ -27,12 +28,13 @@ export default function Hero() {
             Pulse <br />
             —designed to push you past your limits and help you go to the max.
           </p>
+          <Link href="/Help">
           <button className="w-[110px] mt-4 h-[39px] rounded-[30px] bg-black text-white font-[500] leading-6 text-[15px]">
             Notify Me
-          </button>
-          <button className="w-[138px] ml-2 h-[39px] rounded-[30px] bg-black text-white font-[500] leading-6 text-[15px]">
+          </button> </Link>
+          <Link href="/Products">  <button className="w-[138px] ml-2 h-[39px] rounded-[30px] bg-black text-white font-[500] leading-6 text-[15px]">
             Shop Air Max
-          </button>
+          </button> </Link>
         </div>
       </div>
     </div>
