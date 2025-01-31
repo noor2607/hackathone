@@ -1,53 +1,59 @@
-'use client'; 
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from 'next/image'; // Correct import
+import Image from "next/image";
+
+type CartItem = {
+  _id: string;
+  productName: string;
+  price: number;
+  quantity: number;
+  imageUrl?: string;
+  image?: { asset?: { url?: string } };
+};
 
 const CartPage = () => {
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      setCart(JSON.parse(storedCart)); 
+    try {
+      const storedCart = localStorage.getItem("cart");
+      if (storedCart) {
+        setCart(JSON.parse(storedCart) as CartItem[]);
+      }
+    } catch (error) {
+      console.error("Error parsing cart data:", error);
+      setCart([]);
     }
   }, []);
 
-  // Remove item from cart and update localStorage
   const removeFromCart = (id: string) => {
     const updatedCart = cart.filter((item) => item._id !== id);
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); 
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // Increase quantity and update localStorage
   const increaseQuantity = (id: string) => {
-    const updatedCart = cart.map((item) => {
-      if (item._id === id) {
-        return { ...item, quantity: item.quantity + 1 }; // Increase quantity
-      }
-      return item;
-    });
+    const updatedCart = cart.map((item) =>
+      item._id === id ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+    );
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Save the updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // Decrease quantity and update localStorage
   const decreaseQuantity = (id: string) => {
-    const updatedCart = cart.map((item) => {
-      if (item._id === id && item.quantity > 1) {
-        return { ...item, quantity: item.quantity - 1 }; // Decrease quantity
-      }
-      return item;
-    });
+    const updatedCart = cart.map((item) =>
+      item._id === id && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    );
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Save the updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   return (
     <div className="flex flex-col lg:flex-row p-6">
-      {/* Left Section: Product Details */}
       <div className="flex-1 space-y-4">
         {cart.length === 0 ? (
           <p>Your cart is empty!</p>
@@ -58,10 +64,10 @@ const CartPage = () => {
               className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md"
             >
               <Image
-                src={item.imageUrl || item.image?.asset?.url} // Ensure the correct image URL
+                src={item.imageUrl ?? item.image?.asset?.url ?? "/placeholder.png"}
                 alt={item.productName}
-                width={24}
-                height={24}
+                width={96}
+                height={96}
                 loading="lazy"
                 className="w-24 h-24 object-cover rounded-md"
               />
@@ -95,18 +101,13 @@ const CartPage = () => {
         )}
       </div>
 
-      {/* Right Section: Order Summary */}
       <div className="w-[300px] lg:w-[440px] bg-gray-50 p-6 rounded-md shadow-md lg:ml-8">
         <h3 className="text-lg font-bold mb-4">Order Summary</h3>
         <div className="space-y-4">
           <div className="flex justify-between">
             <span>Subtotal</span>
             <span>
-              ₹{" "}
-              {cart.reduce(
-                (acc, item) => acc + item.price * (item.quantity || 1),
-                0
-              )}
+              ₹ {cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)}
             </span>
           </div>
           <div className="flex justify-between">
@@ -116,11 +117,7 @@ const CartPage = () => {
           <div className="flex justify-between font-bold">
             <span>Total</span>
             <span>
-              ₹{" "}
-              {cart.reduce(
-                (acc, item) => acc + item.price * (item.quantity || 1),
-                0
-              )}
+              ₹ {cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)}
             </span>
           </div>
         </div>
@@ -128,12 +125,12 @@ const CartPage = () => {
           (The total reflects the price of your order, including all duties and taxes)
         </p>
 
-        {/* Checkout Button */}
-
-        <Link href="/Checkout"> {/* Link to Checkout page */}
+        {/* Correct usage of Link */}
+        <Link href="/Checkout">
           <button className="w-full bg-black text-white py-2 mt-4 rounded-md hover:bg-gray-800 transition">
             Checkout
-          </button>   </Link>
+          </button>
+        </Link>
       </div>
     </div>
   );

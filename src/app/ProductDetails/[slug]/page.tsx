@@ -1,6 +1,5 @@
 'use client'; 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; 
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
