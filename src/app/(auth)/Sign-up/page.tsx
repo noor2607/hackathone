@@ -1,5 +1,5 @@
 import React from "react";
-import Image from 'next/image'; // Correct import
+import Image from 'next/image'; 
 
 export default function Signup() {
   return (
@@ -8,7 +8,7 @@ export default function Signup() {
         {/* Logo */}
         <div className="flex justify-center mb-4">
           <Image
-            src="/logo.png" /* Replace with your logo URL */
+            src="/logo.png" 
             alt="Nike Logo"
             width={200}
             height={200}

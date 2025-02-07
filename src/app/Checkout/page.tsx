@@ -1,7 +1,9 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import sanityClient from "@/sanity/lib/sanityClient";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CartItem {
   id: string;
@@ -13,8 +15,17 @@ interface CartItem {
 
 export default function Checkout() {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    City: "",
+    postalCode: "",
+    country: "India",
+  });
 
-  // Fetch cart data from local storage (Client-side only)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");
@@ -24,108 +35,96 @@ export default function Checkout() {
     }
   }, []);
 
-  // Calculate subtotal
-  const subtotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (cart.length === 0) {
+      toast.error("Your cart is empty!");
+      return;
+    }
+
+    const orderData = {
+      _type: "order",
+      customer: {
+        _type: "customer",
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        address: {
+          _type: "address",
+          address: userData.address,
+          City: userData.City,
+          postalCode: userData.postalCode,
+          country: userData.country,
+        },
+      },
+      items: cart.map((item) => ({
+        _type: "cartItem",
+        _key: item.id, // Ensure unique key
+        productName: item.productName,
+        price: item.price,
+        quantity: item.quantity,
+        imageUrl: item.imageUrl,
+      })),
+      totalAmount: cart.reduce((total, item) => total + item.price * item.quantity, 0),
+    };
+
+    try {
+      await sanityClient.create(orderData);
+      toast.success("Order placed successfully!");
+      localStorage.removeItem("cart");
+      setCart([]);
+    } catch (error) {
+      console.error("Error saving order:", error);
+      toast.error("Failed to place order.");
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-white text-black">
-      {/* Header */}
-      <header className="flex justify-between items-center p-6 border-b">
-  
+    <div className="min-h-screen bg-white text-black p-6">
+      <header className="flex justify-between items-center border-b pb-4">
         <div className="text-sm">000 800 100 9538</div>
       </header>
-
-      <main className="flex flex-col lg:flex-row gap-8 p-6">
-        {/* Left Section: Form */}
+      <main className="flex flex-col lg:flex-row gap-8 mt-6">
         <div className="flex-1">
-          <h2 className="text-xl font-bold mb-4">How would you like to get your order?</h2>
-          <p className="text-sm text-gray-700 mb-4">
-            Customs regulation for India requires a copy of the recipient's KYC. The address on this KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns.
-          </p>
-          
-
-          {/* Form: Name and Address */}
-          <h3 className="text-lg font-bold mb-4">Enter your name and address:</h3>
-          <form className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder="First Name" className="w-full border border-gray-300 p-3 rounded-md" />
-              <input type="text" placeholder="Last Name" className="w-full border border-gray-300 p-3 rounded-md" />
-            </div>
-            <input type="text" placeholder="Address Line 1" className="w-full border border-gray-300 p-3 rounded-md" />
-            <input type="text" placeholder="Address Line 2" className="w-full border border-gray-300 p-3 rounded-md" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input type="text" placeholder="Postal Code" className="w-full border border-gray-300 p-3 rounded-md" />
-              <input type="text" placeholder="Locality" className="w-full border border-gray-300 p-3 rounded-md" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <select className="w-full border border-gray-300 p-3 rounded-md">
-                <option>State/Territory</option>
-                <option>Maharashtra</option>
-                <option>Delhi</option>
-              </select>
-              <select className="w-full border border-gray-300 p-3 rounded-md">
-                <option>India</option>
-              </select>
-            </div>
-            <h3 className="text-lg font-bold mt-6 mb-4">Contact information</h3>
-            <input type="email" placeholder="Email" className="w-full border border-gray-300 p-3 rounded-md" />
-            <input type="tel" placeholder="Phone Number" className="w-full border border-gray-300 p-3 rounded-md" />
-            
-            {/* Checkout Button (Disabled if Cart is Empty) */}
-            <button 
-              className={`w-full font-semibold text-black py-3 rounded-md mt-6 ${
-                cart.length === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-black text-white"
-              }`}
-              disabled={cart.length === 0}
-            >
+          <h2 className="text-xl font-bold mb-4">Checkout</h2>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} required className="w-full border p-3 rounded-md" />
+            <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} required className="w-full border p-3 rounded-md" />
+            <input type="text" name="address" placeholder="Address" onChange={handleChange} required className="w-full border p-3 rounded-md" />
+            <input type="text" name="City" placeholder="City" onChange={handleChange} required className="w-full border p-3 rounded-md" />
+            <input type="text" name="postalCode" placeholder="Postal Code" onChange={handleChange} required className="w-full border p-3 rounded-md" />
+            <input type="email" name="email" placeholder="Email" onChange={handleChange} required className="w-full border p-3 rounded-md" />
+            <input type="tel" name="phone" placeholder="Phone Number" onChange={handleChange} required className="w-full border p-3 rounded-md" />
+            <button type="submit" className="w-full bg-black text-white py-3 rounded-md font-semibold mt-6" disabled={cart.length === 0}>
               Place Order
             </button>
           </form>
         </div>
-
-        {/* Right Section: Order Summary */}
         <div className="w-full lg:w-1/3 bg-gray-50 p-6 rounded-md shadow-md">
           <h3 className="text-lg font-bold mb-4">Order Summary</h3>
-          <div className="space-y-4">
-            {cart.length > 0 ? (
-              cart.map((item) => (
-                <div key={item.id} className="flex items-center">
-                  <Image 
-                    src={item.imageUrl} 
-                    alt={item.productName} 
-                    width={80} 
-                    height={80} 
-                    className="w-20 h-20 rounded-md object-cover" 
-                  />
-                  <div className="ml-4">
-                    <p>{item.productName}</p>
-                    <p>Qty: {item.quantity}</p>
-                    <p>₹ {item.price * item.quantity}</p>
-                  </div>
+          {cart.length > 0 ? (
+            cart.map((item) => (
+              <div key={item.id} className="flex items-center mb-4">
+                <Image src={item.imageUrl} alt={item.productName} width={80} height={80} className="w-20 h-20 rounded-md object-cover" />
+                <div className="ml-4">
+                  <p>{item.productName}</p>
+                  <p>Qty: {item.quantity}</p>
+                  <p>₹ {item.price * item.quantity}</p>
                 </div>
-              ))
-            ) : (
-              <p className="text-sm text-gray-500">Your cart is empty.</p>
-            )}
-          </div>
-          {cart.length > 0 && (
-            <>
-              <div className="flex justify-between font-bold mt-4">
-                <span>Subtotal</span>
-                <span>₹ {subtotal}</span>
               </div>
-              <p className="text-sm text-gray-500 mt-4">
-                (The total reflects the price of your order, including all duties and taxes.)
-              </p>
-            </>
+            ))
+          ) : (
+            <p className="text-sm text-gray-500">Your cart is empty.</p>
           )}
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="p-6 bg-gray-100 text-center text-sm">
-        <div>© {new Date().getFullYear()} Nike, Inc. All Rights Reserved</div>
-      </footer>
+      <ToastContainer />
     </div>
   );
 }
