@@ -20,7 +20,12 @@ const CartPage = () => {
     try {
       const storedCart = localStorage.getItem("cart");
       if (storedCart) {
-        setCart(JSON.parse(storedCart) as CartItem[]);
+        const parsedCart: CartItem[] = JSON.parse(storedCart).map((item: CartItem) => ({
+          ...item,
+          price: Number(item.price) || 0, // Ensure price is a number
+          quantity: Number(item.quantity) || 1, // Ensure quantity is a valid number
+        }));
+        setCart(parsedCart);
       }
     } catch (error) {
       console.error("Error parsing cart data:", error);
@@ -28,29 +33,31 @@ const CartPage = () => {
     }
   }, []);
 
-  const removeFromCart = (id: string) => {
-    const updatedCart = cart.filter((item) => item._id !== id);
+  const updateCart = (updatedCart: CartItem[]) => {
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  const removeFromCart = (id: string) => {
+    const updatedCart = cart.filter((item) => item._id !== id);
+    updateCart(updatedCart);
   };
 
   const increaseQuantity = (id: string) => {
     const updatedCart = cart.map((item) =>
-      item._id === id ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+      item._id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    updateCart(updatedCart);
   };
 
   const decreaseQuantity = (id: string) => {
     const updatedCart = cart.map((item) =>
-      item._id === id && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
+      item._id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
     );
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    updateCart(updatedCart);
   };
+
+  const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <div className="flex flex-col lg:flex-row p-6">
@@ -73,7 +80,7 @@ const CartPage = () => {
               />
               <div className="flex-1 pl-4">
                 <p className="font-medium">{item.productName}</p>
-                <p className="text-gray-500">Price: ₹ {item.price}</p>
+                <p className="text-gray-500">Price: ₹ {item.price.toFixed(2)}</p>
                 <div className="flex items-center space-x-2 mt-2">
                   <button
                     onClick={() => decreaseQuantity(item._id)}
@@ -81,7 +88,7 @@ const CartPage = () => {
                   >
                     -
                   </button>
-                  <span className="text-sm">{item.quantity || 1}</span>
+                  <span className="text-sm">{item.quantity}</span>
                   <button
                     onClick={() => increaseQuantity(item._id)}
                     className="text-black text-[20px] hover:text-green-900"
@@ -106,9 +113,7 @@ const CartPage = () => {
         <div className="space-y-4">
           <div className="flex justify-between">
             <span>Subtotal</span>
-            <span>
-              ₹ {cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)}
-            </span>
+            <span>₹ {totalAmount.toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
             <span>Delivery/Shipping</span>
@@ -116,18 +121,18 @@ const CartPage = () => {
           </div>
           <div className="flex justify-between font-bold">
             <span>Total</span>
-            <span>
-              ₹ {cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)}
-            </span>
+            <span>₹ {totalAmount.toFixed(2)}</span>
           </div>
         </div>
         <p className="text-sm text-gray-500 mt-4">
           (The total reflects the price of your order, including all duties and taxes)
         </p>
 
-        {/* Correct usage of Link */}
         <Link href="/Checkout">
-          <button className="w-full bg-black text-white py-2 mt-4 rounded-md hover:bg-gray-800 transition">
+          <button
+            className="w-full bg-black text-white py-2 mt-4 rounded-md hover:bg-gray-800 transition"
+            disabled={cart.length === 0}
+          >
             Checkout
           </button>
         </Link>

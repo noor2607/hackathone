@@ -16,8 +16,7 @@ const nextConfig = withBundleAnalyzer({
     ],
   },
   reactStrictMode: true, // Enables React Strict Mode for better debugging
-  swcMinify: true, // Minifies JavaScript for faster loading
-  compress: true, // Enables Gzip compression to reduce file size
+  compress: true, // Enables Gzip compression for performance
   experimental: {
     optimizeCss: true, // Minifies CSS
     nextScriptWorkers: true, // Moves scripts to Web Workers for performance
