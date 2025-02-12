@@ -1,20 +1,25 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isProtectedRoute = createRouteMatcher([
-  "/Cart",
-]);
+// Define protected routes (case-sensitive)
+const isProtectedRoute = createRouteMatcher(["/Cart"]);
 
-export default clerkMiddleware((auth, req) => {
-  return auth().then((authObject) => {
-    if (isProtectedRoute(req) && !authObject.userId) {
-      return Response.redirect(new URL("/sign-in", req.url)); 
-    }
-  });
+export default clerkMiddleware(async (auth, req) => {
+  console.log("Middleware executed for:", req.nextUrl.pathname);
+
+  // Get authentication details
+  const authObject = await auth();
+  console.log("Auth Object:", authObject);
+
+  // Redirect unauthenticated users trying to access protected routes
+  if (isProtectedRoute(req) && !authObject?.userId) {
+    console.log("User not logged in. Redirecting to /Sign-in...");
+    return Response.redirect(new URL("/Sign-in", req.url));
+  } else {
+    console.log("User is authenticated or route is not protected.");
+  }
 });
 
+// Ensure middleware applies correctly to /Cart and all subpaths
 export const config = {
-  matcher: [
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    "/(api|trpc)(.*)",
-  ],
+  matcher: ["/Cart/:path*"], // Covers `/Cart` and subpages
 };

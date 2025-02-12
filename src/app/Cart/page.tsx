@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 type CartItem = {
   _id: string;
@@ -60,6 +61,7 @@ const CartPage = () => {
   const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
+    <ProtectedRoute>
     <div className="flex flex-col lg:flex-row p-6">
       <div className="flex-1 space-y-4">
         {cart.length === 0 ? (
@@ -138,6 +140,7 @@ const CartPage = () => {
         </Link>
       </div>
     </div>
+    </ProtectedRoute>
   );
 };
 

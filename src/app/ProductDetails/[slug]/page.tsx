@@ -34,14 +34,14 @@ async function getProduct(slug: string): Promise<Product | null> {
 }
 
 export default function ProductPage() {
-  const params = useParams(); // ✅ Fix: Use Next.js useParams to access route params
-  const slug = params?.slug as string; // ✅ Ensure slug is correctly typed
+  const params = useParams(); 
+  const slug = params?.slug as string; 
 
   const [product, setProduct] = useState<Product | null>(null);
   const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
-    if (!slug) return; // ✅ Prevent unnecessary fetch if slug is missing
+    if (!slug) return; 
 
     const fetchProduct = async () => {
       const productData = await getProduct(slug);
@@ -65,7 +65,7 @@ export default function ProductPage() {
     return (
       <div className="h-screen flex items-center justify-center">
         <h1 className="text-2xl font-bold">Loading...</h1>
-        <p className="text-gray-600">Sorry, we couldn't find the product you're looking for.</p>
+        <p className="text-gray-600">Loading..</p>
       </div>
     );
   }
